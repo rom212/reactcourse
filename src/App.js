@@ -42,11 +42,17 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Hi I am a React app</h1>
-        <button onClick={()=>this.switchHandler(10)}>Add years</button>
+        <button 
+          style={{cursor:"pointer",border:"1px solid blue"}}
+          onClick={()=>this.switchHandler(10)}>
+            Add years
+        </button>
         <div>
           <Person 
             name={this.state.persons[0].name} 
             age={this.state.persons[0].age}
+            click={()=>this.switchHandler(5)}
+            nameChange={this.nameChange}
             > What'sup ?</Person>
           <Person 
             name={this.state.persons[1].name} 
