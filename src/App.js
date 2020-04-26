@@ -4,12 +4,13 @@ import Person from './Person/Person';
 
 
 
+
 class App extends Component {
 
   state = {
     persons: [
-      {name: "romano" , age: 38},
-      {name: "mateo" , age: 39}
+      {id: 0, name: "romano" , age: 38},
+      {id: 1, name: "mateo" , age: 39}
     ]
   }
 
@@ -18,23 +19,31 @@ class App extends Component {
     let newPerson = []
     this.state.persons.forEach((k)=>{
       if (k.name === "mateo") {
-        newPerson.push({name: k.name, age: k.age+incr});
+        newPerson.push({id: k.id, name: k.name, age: k.age+incr});
       } else{
-        newPerson.push({name: k.name, age: k.age});
+        newPerson.push({id: k.id, name: k.name, age: k.age});
       }
     })
     this.setState({persons: newPerson})
   }
 
 
-  nameChange = (event) => {
-    console.log(event.target.value)
-    this.setState({
-      persons: [
-        {name: "romano" , age: 38},
-        {name: event.target.value , age: 39}
-      ]
+  nameChange = (event , id) => {
+    // console.log(event);
+    // console.log(this.state);
+    let tempPersonState = [...this.state.persons];
+    //console.log(tempPersonState);
+    let newPersonState = []; 
+    tempPersonState.forEach(pers => {
+      if(pers.id === id){
+        newPersonState.push({id: pers.id, name: event.target.value , age: pers.age});
+      } else {
+        newPersonState.push({id: pers.id, name: pers.name , age: pers.age});
+      }
     })
+    console.log("state",this.state)
+    console.log("temp" , newPersonState)
+    this.setState({persons:newPersonState})
   }
 
 
@@ -48,20 +57,17 @@ class App extends Component {
             Add years
         </button>
         <div>
-          <Person 
-            name={this.state.persons[0].name} 
-            age={this.state.persons[0].age}
-            click={()=>this.switchHandler(5)}
-            nameChange={this.nameChange}
-            > What'sup ?</Person>
-          <Person 
-            name={this.state.persons[1].name} 
-            age={this.state.persons[1].age}
-            click={()=>this.switchHandler(5)}
-            nameChange={this.nameChange}
-            > What'sup ?</Person>
+          {this.state.persons.map(pers => {
+              return <Person 
+                name={pers.name} 
+                age={pers.age}
+                key={pers.id}
+                click={()=>this.switchHandler(5)}
+                nameChange={(event) => this.nameChange(event,pers.id)}
+                > What'sup ?</Person>;
+            })
+          }
         </div>
-
       </div>
     );
   }

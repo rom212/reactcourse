@@ -10,7 +10,7 @@ const style = {
 
 const person = (props) => {
     return(
-        <div style={style} onClick={props.click}>
+        <div style={style} onClick={props.click} key={props.id}>
             <p>Hi my name is {props.name}</p>
             <p>I am {props.age}</p>
             <p>{props.children}</p>
