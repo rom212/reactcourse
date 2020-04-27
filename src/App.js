@@ -43,11 +43,19 @@ class App extends Component {
     this.setState({persons:newPersonState})
   }
 
-
   render() {
+
+    let myClass=[];
+    if (this.state.persons[0].name === "romano") {
+      myClass.push("red");
+      myClass.push("bold");
+      console.log(myClass);
+    }
+
+
     return (
       <div className="App">
-        <h1>Hi I am a React app</h1>
+        <h1 className={myClass.join(" ")}>Hi I am a React app</h1>
         <button
           style= { (this.state.buttonCounter > 3) ?
             {cursor:"pointer",border:"1px solid red",background: "red"} :
